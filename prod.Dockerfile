@@ -27,13 +27,13 @@ RUN npm install
 RUN gem install bundler --conservative
 RUN bundle check || bundle install
 
+# Set up env
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+
 # Precompile assets
 RUN rake assets:precompile
-
-# Set up env
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
 
 COPY ./bin/prod.entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/prod.entrypoint.sh
