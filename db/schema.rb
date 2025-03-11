@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "certifications", force: :cascade do |t|
-    t.integer "participant_id"
-    t.integer "certification_type_id"
+    t.bigint "participant_id"
+    t.bigint "certification_type_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["certification_type_id"], name: "index_certifications_on_certification_type_id"
@@ -36,34 +36,34 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "charges", force: :cascade do |t|
-    t.integer "organization_id"
-    t.integer "charge_type_id"
+    t.bigint "organization_id"
+    t.bigint "charge_type_id"
     t.decimal "amount", precision: 8, scale: 2
     t.text "description"
-    t.integer "issuing_participant_id"
-    t.integer "receiving_participant_id"
+    t.bigint "issuing_participant_id"
+    t.bigint "receiving_participant_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.datetime "charged_at", precision: nil
     t.boolean "is_approved"
-    t.integer "creating_participant_id"
+    t.bigint "creating_participant_id"
     t.index ["organization_id"], name: "index_charges_on_organization_id"
   end
 
   create_table "checkouts", force: :cascade do |t|
-    t.integer "tool_id"
+    t.bigint "tool_id"
     t.datetime "checked_out_at", precision: nil
     t.datetime "checked_in_at", precision: nil
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.integer "participant_id"
-    t.integer "organization_id"
+    t.bigint "participant_id"
+    t.bigint "organization_id"
     t.index ["tool_id"], name: "index_checkouts_on_tool_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
-    t.integer "attempts", default: 0, null: false
+    t.bigint "priority", default: 0, null: false
+    t.bigint "attempts", default: 0, null: false
     t.text "handler", null: false
     t.text "last_error"
     t.datetime "run_at", precision: nil
@@ -83,11 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
 
   create_table "events", force: :cascade do |t|
     t.boolean "is_done"
-    t.integer "event_type_id", limit: 4
+    t.bigint "event_type_id", limit: 4
     t.datetime "created_at", precision: nil
     t.text "description", limit: 65535
     t.datetime "updated_at", precision: nil
-    t.integer "participant_id"
+    t.bigint "participant_id"
   end
 
   create_table "faq", force: :cascade do |t|
@@ -95,18 +95,18 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
     t.text "answer"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.integer "organization_category_id"
+    t.bigint "organization_category_id"
     t.index ["organization_category_id"], name: "index_faq_on_organization_category_id"
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "organization_id"
-    t.integer "participant_id"
+    t.bigint "organization_id"
+    t.bigint "participant_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.boolean "is_booth_chair"
     t.string "title"
-    t.integer "booth_chair_order"
+    t.bigint "booth_chair_order"
     t.boolean "is_in_csv"
     t.boolean "is_added_by_csv"
     t.index ["organization_id"], name: "index_memberships_on_organization_id"
@@ -114,8 +114,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer "participant_id", null: false
-    t.integer "organization_id"
+    t.bigint "participant_id", null: false
+    t.bigint "organization_id"
     t.boolean "hidden"
     t.string "title"
     t.string "value"
@@ -128,7 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
 
   create_table "organization_aliases", force: :cascade do |t|
     t.string "name"
-    t.integer "organization_id"
+    t.bigint "organization_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_organization_aliases_on_name"
@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "organization_build_statuses", force: :cascade do |t|
-    t.integer "organization_id", null: false
+    t.bigint "organization_id", null: false
     t.string "status_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -146,9 +146,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   create_table "organization_build_steps", force: :cascade do |t|
     t.string "title"
     t.text "requirements"
-    t.integer "step"
+    t.bigint "step"
     t.boolean "completed"
-    t.integer "organization_build_status_id", null: false
+    t.bigint "organization_build_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_build_status_id"], name: "index_organization_build_steps_on_organization_build_status_id"
@@ -171,11 +171,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   create_table "organization_timeline_entries", force: :cascade do |t|
     t.datetime "started_at", precision: nil
     t.datetime "ended_at", precision: nil
-    t.integer "organization_id"
+    t.bigint "organization_id"
     t.text "description"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.integer "entry_type"
+    t.bigint "entry_type"
     t.index ["organization_id"], name: "index_organization_timeline_entries_on_organization_id"
   end
 
@@ -187,7 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
-    t.integer "organization_category_id"
+    t.bigint "organization_category_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "short_name"
@@ -212,9 +212,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "scissor_lift_checkouts", force: :cascade do |t|
-    t.integer "scissor_lift_id", null: false
-    t.integer "participant_id", null: false
-    t.integer "organization_id", null: false
+    t.bigint "scissor_lift_id", null: false
+    t.bigint "participant_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "checked_out_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -233,8 +233,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "shift_participants", force: :cascade do |t|
-    t.integer "shift_id"
-    t.integer "participant_id"
+    t.bigint "shift_id"
+    t.bigint "participant_id"
     t.datetime "clocked_in_at", precision: nil
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
@@ -252,9 +252,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   create_table "shifts", force: :cascade do |t|
     t.datetime "starts_at", precision: nil
     t.datetime "ends_at", precision: nil
-    t.integer "required_number_of_participants"
-    t.integer "organization_id"
-    t.integer "shift_type_id"
+    t.bigint "required_number_of_participants"
+    t.bigint "organization_id"
+    t.bigint "shift_type_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "description"
@@ -264,16 +264,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   create_table "store_items", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 8, scale: 2
-    t.integer "quantity"
+    t.bigint "quantity"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "store_purchases", force: :cascade do |t|
-    t.integer "charge_id"
-    t.integer "store_item_id"
+    t.bigint "charge_id"
+    t.bigint "store_item_id"
     t.decimal "price_at_purchase", precision: 8, scale: 2
-    t.integer "quantity_purchased"
+    t.bigint "quantity_purchased"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["charge_id"], name: "index_store_purchases_on_charge_id"
@@ -282,7 +282,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
 
   create_table "tasks", force: :cascade do |t|
     t.datetime "due_at", precision: nil
-    t.integer "completed_by_id"
+    t.bigint "completed_by_id"
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: nil
@@ -296,21 +296,21 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "tool_inventory_tools", force: :cascade do |t|
-    t.integer "barcode"
+    t.bigint "barcode"
     t.string "description"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tool_type_id", null: false
-    t.integer "tool_inventory_id", null: false
+    t.bigint "tool_type_id", null: false
+    t.bigint "tool_inventory_id", null: false
     t.index ["barcode"], name: "index_tool_inventory_tools_on_barcode", unique: true
     t.index ["tool_inventory_id"], name: "index_tool_inventory_tools_on_tool_inventory_id"
     t.index ["tool_type_id"], name: "index_tool_inventory_tools_on_tool_type_id"
   end
 
   create_table "tool_type_certifications", force: :cascade do |t|
-    t.integer "tool_type_id"
-    t.integer "certification_type_id"
+    t.bigint "tool_type_id"
+    t.bigint "certification_type_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["certification_type_id"], name: "index_tool_type_certifications_on_certification_type_id"
@@ -324,11 +324,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_05_005130) do
   end
 
   create_table "tools", force: :cascade do |t|
-    t.integer "barcode"
+    t.bigint "barcode"
     t.text "description"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.integer "tool_type_id"
+    t.bigint "tool_type_id"
     t.boolean "active"
     t.index ["barcode"], name: "index_tools_on_barcode"
     t.index ["tool_type_id"], name: "index_tools_on_tool_type_id"

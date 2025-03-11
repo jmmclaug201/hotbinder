@@ -8,7 +8,7 @@ rm -f ./tmp/pids/server.pid
 # Make sure db is ready to go
 # Adding '2>/dev/null' sends output to nowhere in the case of an error and the
 # error code also triggers the bash OR to run db:setup
-bundle exec rails db:drop && bundle exec rails db:create && bundle exec rails db:migrate
+bundle exec rails db:migrate
 # bundle exec rails ds:update_clients - TODO: Figure out what this is and potentially include
 
 # Then exec the container's main process (CMD in the Dockerfile).

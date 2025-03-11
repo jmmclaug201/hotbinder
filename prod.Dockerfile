@@ -25,7 +25,10 @@ COPY . /build/
 # Install gems and npm dependencies
 RUN npm install
 RUN gem install bundler --conservative
-RUN bundle check || bundle install
+RUN bundle check || bundle install --without development test
+
+# Precompile assets - only required for non-API apps
+RUN rake assets:precompile
 
 # Set up env
 ENV RAILS_ENV=production
